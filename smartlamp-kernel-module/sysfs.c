@@ -15,8 +15,8 @@ static uint usb_in, usb_out;                       // Endereços das portas de e
 static char *usb_in_buffer, *usb_out_buffer;       // Buffers de entrada e saída da USB
 static int usb_max_size;                           // Tamanho máximo de uma mensagem USB
 
-#define VENDOR_ID   SUBSTITUA_PELO_VENDORID /* Encontre o VendorID  do smartlamp */
-#define PRODUCT_ID  SUBSTITUA_PELO_PRODUCTID /* Encontre o ProductID do smartlamp */
+#define VENDOR_ID   0x10c4 /* Encontre o VendorID  do smartlamp */
+#define PRODUCT_ID  0xea60 /* Encontre o ProductID do smartlamp */
 static const struct usb_device_id id_table[] = { { USB_DEVICE(VENDOR_ID, PRODUCT_ID) }, {} };
 
 static int  usb_probe(struct usb_interface *ifce, const struct usb_device_id *id); // Executado quando o dispositivo é conectado na USB
@@ -53,7 +53,7 @@ module_usb_driver(smartlamp_driver);
 static int usb_probe(struct usb_interface *interface, const struct usb_device_id *id) {
     struct usb_endpoint_descriptor *usb_endpoint_in, *usb_endpoint_out;
 
-    printk(KERN_INFO "SmartLamp: Dispositivo conectado ...\n");
+    printk(KERN_INFO "SmartLamp: Dispositivo conectado ... Agora é o sysfs\n");
 
     // Cria arquivos do /sys/kernel/smartlamp/*
     sys_obj = kobject_create_and_add("smartlamp", kernel_kobj);
@@ -118,7 +118,14 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
     // Implemente a leitura do valor do led usando a função usb_read_serial()
         
 
-    sprintf(buff, "%d\n", value);                   // Cria a mensagem com o valor do led, ldr
+    //sprintf(buff, "%d\n", value);                   // Cria a mensagem com o valor do led, ldr
+    if (strcmp(attr_name, "led") == 0) {
+        sprintf(buff, "\n\nTIME 2 FTW!!!\n");
+    }
+    if (strcmp(attr_name, "ldr") == 0) {
+        sprintf(buff, "\n\nDevTITANS\n");
+    }
+
     return strlen(buff);
 }
 
