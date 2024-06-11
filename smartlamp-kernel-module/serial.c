@@ -127,7 +127,7 @@ static int usb_read_serial() {
 
     // Espera pela resposta correta do dispositivo (desiste depois de várias tentativas)
     while (retries > 0) {
-        printk(KERN_INFO "Tentativa de leitura do serial");
+        //printk(KERN_INFO "Tentativa de leitura do serial");
         // Lê os dados da porta serial e armazena em usb_in_buffer
             // usb_in_buffer - contem a resposta em string do dispositivo
             // actual_size - contem o tamanho da resposta em bytes
@@ -136,7 +136,7 @@ static int usb_read_serial() {
 
         
         if (ret) {
-            printk(KERN_ERR "SmartLamp: Erro ao ler dados da USB (tentativa %d). Codigo: %d\n", ret, retries--);
+            printk(KERN_ERR "SmartLamp: Erro ao ler dados da USB (tentativa %d). Codigo: %d\n",retries--, ret);
             continue;
         }
 
