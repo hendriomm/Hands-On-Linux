@@ -136,6 +136,11 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
 static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, const char *buff, size_t count) {
     long ret, value;
     const char *attr_name = attr->attr.name;
+    
+    if (strcmp(attr_name, "ldr") == 0) {
+    	printk(KERN_ALERT "Erro! Acesso ao arquivo não permitido\n");
+    	return -EACCES;
+    }
 
     // Converte o valor recebido para long
     ret = kstrtol(buff, 10, &value);
@@ -149,6 +154,11 @@ static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, 
     if (ret < 0) {
         printk(KERN_ALERT "SmartLamp: erro ao setar o valor do %s.\n", attr_name);
         return -EACCES;
+    }
+    
+    if (strcmp(attr_name, "led") == 0) {
+    	printk(KERN_ALERT "Valor atual do led: %ld\n", value);
+    	return strlen(buff);;
     }
 
     return strlen(buff);
