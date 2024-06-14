@@ -1,9 +1,16 @@
+#include <DHT.h>
+
+#define DHTPIN 15       
+#define DHTTYPE DHT11
+
 // Definição dos pinos de LED e LDR
 int ledPin = 25;
 int ldrPin = 36;
 
 int ledValue = 10; // Valor inicial do LED
 int ldrMax = 4000; // Valor máximo do LDR
+
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
     Serial.begin(9600);
@@ -42,9 +49,25 @@ void processCommand(String command) {
         Serial.print("RES GET_LDR ");
         int ldrValue = ldrGetValue();
         Serial.println(map(ldrValue, 0, ldrMax, 0, 100));
+    } else if(command.startsWith("GET_TEMP")){
+        Serial.print("RES GET_TEMP ");
+        int tempDHT = getTemp();
+        Serial.println(tempDHT);
+    } else if(command.startsWith("GET_HUM")){
+        Serial.print("RES GET_HUM ");
+        int humDHT = getHum();
+        Serial.println(humDHT);
     } else {
         Serial.println("ERR Unknown command.");
     }
+}
+
+float getHum(){
+  return dht.readHumidity();
+}
+
+float getTemp(){
+  return dht.readTemperature();
 }
 
 // Função para atualizar o valor do LED
