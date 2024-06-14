@@ -126,7 +126,7 @@ static int usb_send_cmd(char *cmd, int param) {
 // Executado quando o arquivo /sys/kernel/smartlamp/{led, ldr} é lido (e.g., cat /sys/kernel/smartlamp/led)
 static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, char *buff) {
     // value representa o valor do led ou ldr
-    int value;
+    int value = -1;
     // attr_name representa o nome do arquivo que está sendo lido (ldr ou led)
     const char *attr_name = attr->attr.name;
 
@@ -134,6 +134,9 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
     printk(KERN_INFO "SmartLamp: Lendo %s ...\n", attr_name);
 
     // Implemente a leitura do valor do led ou ldr usando a função usb_send_cmd()
+	
+	if (strcmp(attr_name, "led") == 0) value = usb_send_cmd("GET_LED", -1);
+	if (strcmp(attr_name, "ldr") == 0) value = usb_send_cmd("GET_LDR", -1);
 
     sprintf(buff, "%d\n", value);                   // Cria a mensagem com o valor do led, ldr
     return strlen(buff);
@@ -145,6 +148,11 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
 static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, const char *buff, size_t count) {
     long ret, value;
     const char *attr_name = attr->attr.name;
+    
+    if (strcmp(attr_name, "ldr") == 0) {
+    	printk(KERN_ALERT "Erro! Acesso ao arquivo não permitido\n");
+    	return -EACCES;
+    }
 
     // Converte o valor recebido para long
     ret = kstrtol(buff, 10, &value);
@@ -160,6 +168,11 @@ static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, 
     if (ret < 0) {
         printk(KERN_ALERT "SmartLamp: erro ao setar o valor do %s.\n", attr_name);
         return -EACCES;
+    }
+    
+    if (strcmp(attr_name, "led") == 0) {
+		value = usb_send_cmd("SET_LED", value);
+    	printk(KERN_ALERT "Valor atual do led: %ld\n", value);
     }
 
     return strlen(buff);
