@@ -38,7 +38,8 @@ void processCommand(String command) {
             //Serial.print("Valor normalizado: ");
             //Serial.println(ledValue);
             ledUpdate();
-            Serial.println("RES SET_LED 1"); //Valor inserido está no intervalo 0 a 100
+            Serial.print("RES SET_LED "); //Valor inserido está no intervalo 0 a 100
+            Serial.println(value);
         } else {
             Serial.println("RES SET_LED -1"); //Entrada inválida do comando SET_LED
         }
