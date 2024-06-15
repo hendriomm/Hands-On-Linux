@@ -34,7 +34,9 @@ static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, 
 // Variáveis para criar os arquivos no /sys/kernel/smartlamp/{led, ldr}
 static struct kobj_attribute  led_attribute = __ATTR(led, S_IRUGO | S_IWUSR, attr_show, attr_store);
 static struct kobj_attribute  ldr_attribute = __ATTR(ldr, S_IRUGO | S_IWUSR, attr_show, attr_store);
-static struct attribute      *attrs[]       = { &led_attribute.attr, &ldr_attribute.attr, NULL };
+static struct kobj_attribute  temp_attribute = __ATTR(temp, S_IRUGO | S_IWUSR, attr_show, attr_store);
+static struct kobj_attribute  hum_attribute = __ATTR(hum, S_IRUGO | S_IWUSR, attr_show, attr_store);
+static struct attribute      *attrs[]       = { &led_attribute.attr, &ldr_attribute.attr, &temp_attribute.attr, &hum_attribute.attr,  NULL };
 static struct attribute_group attr_group    = { .attrs = attrs };
 static struct kobject        *sys_obj;                                             // Executado para ler a saida da porta serial
 
@@ -147,6 +149,12 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
     else if(strcmp(attr_name, "ldr") == 0) {
         value = usb_send_cmd("GET_LDR", -1);
     }
+    else if (strcmp(attr_name, "temp") == 0) {
+        value = usb_send_cmd("GET_TEMP", -1);
+    }
+    else if (strcmp(attr_name, "hum") == 0) {
+        value = usb_send_cmd("GET_HUM", -1);
+    }
 
 
     sprintf(buff, "%d\n", value);                   // Cria a mensagem com o valor do led, ldr
@@ -184,11 +192,6 @@ static ssize_t attr_store(struct kobject *sys_obj, struct kobj_attribute *attr, 
     if (ret < 0) {
         printk(KERN_ALERT "SmartLamp: erro ao setar o valor do %s.\n", attr_name);
         return -EACCES;
-    }
-    
-    if (strcmp(attr_name, "led") == 0) {
-		value = usb_send_cmd("SET_LED", value);
-    	printk(KERN_ALERT "Valor atual do led: %ld\n", value);
     }
 
     if (strcmp(attr_name, "led") == 0) {
