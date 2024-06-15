@@ -70,40 +70,8 @@ static void usb_disconnect(struct usb_interface *interface) {
 }
 
 static int get_int_from_buffer(const char* buffer, const char* target_string) {
-    //printk(KERN_INFO "get_int_from_buffer");
     char *ptr = strstr(buffer, target_string);
     int i = 0;
-
-
-    /*while (buffer[i++] != '\0') {
-        if (buffer[i] != '1' && 
-        buffer[i] != '2' && 
-        buffer[i] != '3' && 
-        buffer[i] != '4' && 
-        buffer[i] != '5' && 
-        buffer[i] != '6' && 
-        buffer[i] != '7' && 
-        buffer[i] != '8' && 
-        buffer[i] != '9' && 
-        buffer[i] != '0') {
-            buffer[i] = '\0';
-            break;
-        }
-    }
-
-    if (ptr != NULL) {
-        ptr += strlen(target_string);
-        printk(KERN_INFO "/'%s/'", ptr);
-        long endptr;
-
-        //int result = kstrtol(ptr, 10, &endptr);
-        printk(KERN_INFO "result is: %d", result);
-
-        if (result) {
-            return -9999;
-        }
-        return (int)endptr;
-    }*/
 
     if (ptr != NULL) {
         ptr += strlen(target_string);
@@ -142,8 +110,6 @@ static int usb_read_serial() {
 
         int i = 0;
        
-        
-
         for (i = 0; i < actual_size; i++) {
             //buffer[j+1] = '\0';
             //printk(KERN_INFO "Buffer %s", buffer);

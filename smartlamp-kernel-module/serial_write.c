@@ -88,7 +88,7 @@ static int usb_write_serial(char *cmd, int param) {
     // Use essa variavel para fazer a integração com a função usb_read_serial
     // resp_expected deve conter a resposta esperada do comando enviado e deve ser comparada com a resposta recebida
     sprintf(resp_expected, "RES %s ", cmd);
-    return -1; 
+    return resp_expected; 
 }
 
 static int get_int_from_buffer(const char* buffer, const char* target_string) {
@@ -155,6 +155,7 @@ static int usb_read_serial() {
             // actual_size - contem o tamanho da resposta em bytes
         int str_length = min(usb_max_size, MAX_RECV_LINE);
         ret = usb_bulk_msg(smartlamp_device, usb_rcvbulkpipe(smartlamp_device, usb_in), usb_in_buffer, str_length, &actual_size, 1000);
+        
 
         
         if (ret) {
