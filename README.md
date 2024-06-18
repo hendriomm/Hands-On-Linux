@@ -15,15 +15,16 @@ Bem-vindo ao repositório da Equipe 02 do HandsON de Linux do DevTITANS! Este pr
 
 ## Contribuidores
 
+<div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
 <img src="assets/matheus_carta.png" width="180" >
 <img src="assets/ricardo_carta.png" width="180" >
+<img src="assets/hendrio_carta.png" width="180" >
 <img src="assets/raquel_carta.png" width="180" >
 <img src="assets/wadrian_carta.png" width="180" >
-<img src="assets/hendrio_carta.png" width="180" >
-
+</div>
 
 - **Matheus Silva dos Santos:** Desenvolvedor do Firmware e Escritor da Documentação
-- **Ricardo Augusto Silva Bonfim:** Desenvolvedor do Firmware
+- **Ricardo Augusto Silva Bonfim:** Desenvolvedor do Firmware e do Driver Linux
 - **Hendrio Medeiros Marques:** Desenvolvedor do Driver Linux e Mantenedor do Projeto
 - **Raquel Folz Cavalcante:** Desenvolvedor do Driver Linux
 - **Wadrian Araujo de Moura:** Desenvolvedor do Driver Linux
