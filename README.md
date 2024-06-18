@@ -24,7 +24,7 @@ Segue abaixo screenshots no terminal do Linux mostrando a execução do projeto:
 <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
 <img src="assets/matheus_carta.png" width="180" >
 <img src="assets/ricardo_carta.png" width="180" >
-<img src="assets/hendrio_carta.png" width="180" >
+<img src="assets/cartao_hendrio.png" width="180" >
 <img src="assets/raquel_carta.png" width="180" >
 <img src="assets/wadrian_carta.png" width="180" >
 </div>
