@@ -22,13 +22,11 @@ Bem-vindo ao repositório da Equipe 02 do HandsON de Linux do DevTITANS! Este pr
 <img src="assets/hendrio_carta.png" width="180" >
 
 
-
 - **Matheus Silva dos Santos:** Desenvolvedor do Firmware e Escritor da Documentação
 - **Ricardo Augusto Silva Bonfim:** Desenvolvedor do Firmware
 - **Hendrio Medeiros Marques:** Desenvolvedor do Driver Linux e Mantenedor do Projeto
 - **Raquel Folz Cavalcante:** Desenvolvedor do Driver Linux
 - **Wadrian Araujo de Moura:** Desenvolvedor do Driver Linux
-- **Giulia Lima Duarte:** Desenvolvedor do Driver Linux
 
 ## Introdução
 
@@ -44,7 +42,7 @@ Este projeto serve como um exemplo para desenvolvedores interessados em construi
   
 - **Driver do Kernel Linux:**
   - Rotinas de inicialização e limpeza.
-  - Operações de arquivo de dispositivo (`GET_LED`, `SET_LED`, `GET_LDR`).
+  - Operações de arquivo de dispositivo (`GET_LED`, `SET_LED`, `GET_LDR`, `GET_TEMP`, `GET_HUM`).
   - Comunicação com o ESP32 via Serial.
 
 ## Requisitos
@@ -54,6 +52,9 @@ Este projeto serve como um exemplo para desenvolvedores interessados em construi
   - Máquina Linux
   - Protoboard e Cabos Jumper
   - Sensor LDR
+  - Sensor DHT11
+  - LED
+  - 3 Resistores de 10k Ohms
   
 - **Software:**
   - Arduino IDE

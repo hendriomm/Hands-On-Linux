@@ -14,8 +14,8 @@ static uint usb_in, usb_out;                       // Endereços das portas de e
 static char *usb_in_buffer, *usb_out_buffer;       // Buffers de entrada e saída da USB
 static int usb_max_size;                           // Tamanho máximo de uma mensagem USB
 
-#define VENDOR_ID   0x10c4 /* Encontre o VendorID  do smartlamp */
-#define PRODUCT_ID  0xea60 /* Encontre o ProductID do smartlamp */
+#define VENDOR_ID   0x10c4 /* VendorID  do smartlamp */
+#define PRODUCT_ID  0xea60 /* ProductID do smartlamp */
 static const struct usb_device_id id_table[] = { { USB_DEVICE(VENDOR_ID, PRODUCT_ID) }, {} };
 
 static int  usb_probe(struct usb_interface *ifce, const struct usb_device_id *id); // Executado quando o dispositivo é conectado na USB

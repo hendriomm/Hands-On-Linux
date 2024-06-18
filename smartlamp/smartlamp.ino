@@ -35,8 +35,6 @@ void processCommand(String command) {
         int value = command.substring(8).toInt(); //Pega o valor para  representar a intensidade de luminosidade do led 
         if (value >= 0 && value <= 100) {
             ledValue = map(value, 0, 100, 0, 255); //Normaliza o valor da  intensidade do led entre 0 e 255 
-            //Serial.print("Valor normalizado: ");
-            //Serial.println(ledValue);
             ledUpdate();
             Serial.print("RES SET_LED "); //Valor inserido está no intervalo 0 a 100
             Serial.println(value);
@@ -63,10 +61,12 @@ void processCommand(String command) {
     }
 }
 
+// Função para ler o valor da umidade
 float getHum(){
   return dht.readHumidity();
 }
 
+// Função para ler o valor da temperatura
 float getTemp(){
   return dht.readTemperature();
 }

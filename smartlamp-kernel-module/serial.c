@@ -15,8 +15,8 @@ static uint usb_in, usb_out;                       // Endereços das portas de e
 static char *usb_in_buffer, *usb_out_buffer, *buffer;       // Buffers de entrada e saída da USB
 static int usb_max_size;                           // Tamanho máximo de uma mensagem USB
 
-#define VENDOR_ID   0x10c4 /* Encontre o VendorID  do smartlamp */
-#define PRODUCT_ID  0xea60 /* Encontre o ProductID do smartlamp */
+#define VENDOR_ID   0x10c4 /* VendorID  do smartlamp */
+#define PRODUCT_ID  0xea60 /* ProductID do smartlamp */
 static const struct usb_device_id id_table[] = { { USB_DEVICE(VENDOR_ID, PRODUCT_ID) }, {} };
 
 static int  usb_probe(struct usb_interface *ifce, const struct usb_device_id *id); // Executado quando o dispositivo é conectado na USB
@@ -53,7 +53,6 @@ static int usb_probe(struct usb_interface *interface, const struct usb_device_id
     buffer = kmalloc(usb_max_size, GFP_KERNEL);
 
     LDR_value = usb_read_serial();
-
 
     printk("LDR Value: %d\n", LDR_value);
 
@@ -95,13 +94,8 @@ static int usb_read_serial() {
 
     // Espera pela resposta correta do dispositivo (desiste depois de várias tentativas)
     while (retries > 0) {
-        //printk(KERN_INFO "Tentativa de leitura do serial");
-        // Lê os dados da porta serial e armazena em usb_in_buffer
-            // usb_in_buffer - contem a resposta em string do dispositivo
-            // actual_size - contem o tamanho da resposta em bytes
         int str_length = min(usb_max_size, MAX_RECV_LINE);
         ret = usb_bulk_msg(smartlamp_device, usb_rcvbulkpipe(smartlamp_device, usb_in), usb_in_buffer, str_length, &actual_size, 1000);
-
         
         if (ret) {
             printk(KERN_ERR "SmartLamp: Erro ao ler dados da USB (tentativa %d). Codigo: %d\n",retries--, ret);
@@ -111,13 +105,9 @@ static int usb_read_serial() {
         int i = 0;
        
         for (i = 0; i < actual_size; i++) {
-            //buffer[j+1] = '\0';
-            //printk(KERN_INFO "Buffer %s", buffer);
-            //printk(KERN_INFO, "USB_IN %c %d", usb_in_buffer[i], usb_in_buffer[i]);
             buffer[j++] = usb_in_buffer[i];
             if (usb_in_buffer[i] == '\n') {
                 buffer[j] = '\0';
-                //printk(KERN_INFO "%s", buffer);
                 int result = get_int_from_buffer(buffer, "RES GET_LDR ");
                 if (result != -9999)
                     return result;
@@ -125,9 +115,6 @@ static int usb_read_serial() {
                 buffer[j+1] = '\0';
             }
         }
-        
     }
-
-
     return -1; 
 }

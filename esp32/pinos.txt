@@ -1,0 +1,20 @@
+DHT11 Sensor:
+
+- Pino de dados conectado ao GPIO 15 do ESP32.
+- Alimentação (VCC) e terra (GND) conectados aos pinos correspondentes do ESP32.
+
+LED:
+
+- O cátodo (pino negativo) do LED conectado ao GND do ESP32.
+- O ânodo (pino positivo) do LED conectado a um resistor (para limitar a corrente) e depois ao GPIO 25 do ESP32.
+
+LDR (Light Dependent Resistor):
+
+- Um lado do LDR conectado ao VCC (3.3V).
+- O outro lado do LDR conectado ao GPIO 36 do ESP32 e também a um resistor que vai para o GND (formando um divisor de tensão).
+
+Links que podem ajudar na montagem dos sensores e do LED:
+
+- DHT11: https://esp32io.com/tutorials/esp32-dht11
+- LDR: https://esp32io.com/tutorials/esp32-light-sensor
+- LED: https://esp32io.com/tutorials/esp32-led-blink

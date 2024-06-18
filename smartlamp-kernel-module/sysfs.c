@@ -15,8 +15,8 @@ static uint usb_in, usb_out;                       // Endereços das portas de e
 static char *usb_in_buffer, *usb_out_buffer;       // Buffers de entrada e saída da USB
 static int usb_max_size;                           // Tamanho máximo de uma mensagem USB
 
-#define VENDOR_ID   0x10c4 /* Encontre o VendorID  do smartlamp */
-#define PRODUCT_ID  0xea60 /* Encontre o ProductID do smartlamp */
+#define VENDOR_ID   0x10c4 /* VendorID  do smartlamp */
+#define PRODUCT_ID  0xea60 /* ProductID do smartlamp */
 static const struct usb_device_id id_table[] = { { USB_DEVICE(VENDOR_ID, PRODUCT_ID) }, {} };
 
 static int  usb_probe(struct usb_interface *ifce, const struct usb_device_id *id); // Executado quando o dispositivo é conectado na USB
@@ -98,8 +98,6 @@ static int usb_read_serial() {
             continue;
         }
 
-        //caso tenha recebido a mensagem 'RES_LDR X' via serial acesse o buffer 'usb_in_buffer' e retorne apenas o valor da resposta X
-        //retorne o valor de X em inteiro
         return 0;
     }
 
@@ -115,10 +113,7 @@ static ssize_t attr_show(struct kobject *sys_obj, struct kobj_attribute *attr, c
 
     // printk indicando qual arquivo está sendo lido
     printk(KERN_INFO "SmartLamp: Lendo %s ...\n", attr_name);
-
-    // Implemente a leitura do valor do led usando a função usb_read_serial()
         
-
     //sprintf(buff, "%d\n", value);                   // Cria a mensagem com o valor do led, ldr
     if (strcmp(attr_name, "led") == 0) {
         sprintf(buff, "\n\nTIME 2 FTW!!!\n");
