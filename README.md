@@ -2,6 +2,12 @@
 
 Bem-vindo ao repositório da Equipe 02 do HandsON de Linux do DevTITANS! Este projeto contém um firmware para o ESP32 escrito em formato Arduino `.ino`, bem como um driver do kernel Linux escrito em C. O objetivo é demonstrar como criar uma solução completa de hardware e software que integra um dispositivo ESP32 com um sistema Linux.
 
+Segue abaixo screenshots no terminal do Linux mostrando a execução do projeto:
+
+<div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+<img src="assets/execucao_do_projeto.png" width="700" >
+</div>
+
 ## Tabela de Conteúdos
 
 - [Contribuidores](#contribuidores)
